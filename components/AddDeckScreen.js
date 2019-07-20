@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TextInput } from 'react-native';
 
 
-class AddDeck extends Component {
+class AddDeckScreen extends Component {
 
   state = {
     text: ''
@@ -11,7 +11,7 @@ class AddDeck extends Component {
   render(){
     
     return(
-      <View>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text> add entry </Text>
         <TextInput
          style={{height: 100}}
@@ -25,4 +25,4 @@ class AddDeck extends Component {
 }
 
 
-export default AddDeck;
+export default AddDeckScreen;
