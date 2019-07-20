@@ -1,17 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { TabNavigator , Platform } from 'react-navigation';
+import AddDeck from './components/AddDeck.js'
 
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Home/>
       <Text>Open up App.js to start working on your app!</Text>
-      <AddDeck/>
+      <Tabs />
     </View>
   );
 }
+
+
+const Tabs = TabNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+    },
+  },
+  AddDeck: {
+    screen: AddDeck,
+    navigationOptions: {
+      tabBarLabel: 'Add Entry',
+      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+    },
+  },
+}, {
+  navigationOptions: {
+    header: null
+  },
+  tabBarOptions: {
+    activeTintColor: Platform.OS === 'ios' ? purple : white,
+    style: {
+      height: 56,
+      backgroundColor: Platform.OS === 'ios' ? white : purple,
+      shadowColor: 'rgba(0, 0, 0, 0.24)',
+      shadowOffset: {
+        width: 0,
+        height: 3
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1
+    }
+  }
+})
 
 
 function Home( ){
@@ -21,15 +58,12 @@ function Home( ){
 }
 
 
-function AddDeck( ){
+
+function Test( ){
   return (<View>
-      <Text> add entry </Text>
-      <TextInput
-       placeholder="Name the Deck!"
-      />
+      <Text> Helloooo </Text>
     </View>)
 }
-
 
 
 
