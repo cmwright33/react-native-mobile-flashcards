@@ -12,7 +12,7 @@ class AddDeckScreen extends Component {
     
     return(
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text> add entry </Text>
+        <Text> Please Name The New Deck You Are Creating! </Text>
         <TextInput
          style={{height: 100}}
          placeholder="Name the Deck!"
