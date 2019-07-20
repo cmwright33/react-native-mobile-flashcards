@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { TabNavigator , Platform } from 'react-navigation';
+import { createBottomTabNavigator , createAppContainer , Platform } from 'react-navigation';
 import AddDeck from './components/AddDeck.js'
+import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 
 
@@ -9,13 +10,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
-      <Tabs />
+      <AppContainer/>
     </View>
   );
 }
 
 
-const Tabs = TabNavigator({
+const Tabs = createBottomTabNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
@@ -23,10 +24,10 @@ const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     },
   },
-  AddDeck: {
-    screen: AddDeck,
+  Test: {
+    screen: Test,
     navigationOptions: {
-      tabBarLabel: 'Add Entry',
+      tabBarLabel: 'Test',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     },
   },
@@ -35,10 +36,10 @@ const Tabs = TabNavigator({
     header: null
   },
   tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? purple : white,
+    activeTintColor:  '#FFF',
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? white : purple,
+      backgroundColor: '#FEFE',
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
@@ -50,6 +51,8 @@ const Tabs = TabNavigator({
   }
 })
 
+
+const AppContainer = createAppContainer(Tabs);
 
 function Home( ){
   return (<View>
@@ -64,6 +67,9 @@ function Test( ){
       <Text> Helloooo </Text>
     </View>)
 }
+
+
+
 
 
 
