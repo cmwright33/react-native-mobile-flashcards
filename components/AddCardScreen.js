@@ -1,32 +1,27 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, Button } from 'react-native';
-import { _saveDeckTitle, _retrieveData } from '../utils/_cardsApi.js'
+import { _saveDeckTitle, _retrieveData , _addCardToDeck} from '../utils/_cardsApi.js'
 
 class AddCardScreen extends Component {
 
   state = {
     question: '',
-    answer: ''
+    answer: '',
+    cardId: this.props.navigation.getParam('itemId', 'NO-ID')
   }
 
 
-  submit = (e) => {
+  addCard = () => {
 
-   e.preventDefault()
+   const { cardId , answer, question } = this.state
 
-   const { question , answer }  =  this.state
-
-  }
-
-
-
-  testSubmit = () => {
-    const { title } = this.state
-    _retrieveData(title)
+   _addCardToDeck( cardId , { question:question, answer:answer } )
 
   }
+
 
   render(){
+
     
     return(
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -44,9 +39,9 @@ class AddCardScreen extends Component {
          value={this.state.answer}
         />
         <Button 
-        onPress={this.submit} 
+        onPress={this.addCard} 
         title="Create Deck"
-        disabled={ this.state.question === '' &&  this.state.answer === '' ? true : false }
+        disabled={ this.state.question === '' ||  this.state.answer === '' ? true : false }
         ></Button>
       </View>
     )

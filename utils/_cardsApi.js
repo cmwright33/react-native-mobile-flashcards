@@ -4,7 +4,7 @@ export const DECK_STORAGE_KEY = 'reactFlashCards:decks'
 
 
 
-export function intialSetUp(){
+export async function intialSetUp(){
 	AsyncStorage.setItem( DECK_STORAGE_KEY, JSON.stringify( decks ), () => {
 		console.log('old data saved!')
 	});
@@ -34,7 +34,6 @@ export async function _getDecks(){
 
 
 export function _getDeck( id ) {
-	console.log(id);
 	_getDecks().then(data => {
 		return data[id]
 	})
@@ -115,5 +114,16 @@ export async function _removeDeck(title){
 // addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
 
 export function _addCardToDeck( title , card ) {
+
+	_getDecks().then( (decks) => {
+		const updateDeck = decks[title]
+		updateDeck.questions.push(card)
+		AsyncStorage.mergeItem( DECK_STORAGE_KEY, JSON.stringify( updateDeck ), () => {
+			console.log(title, 'card merged with deck!')
+
+			return card;
+		});
+		
+	} )
 	
 }

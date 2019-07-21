@@ -29,7 +29,7 @@ class DeckDetailScreen extends Component {
           <Text> Name of Deck: { deck.title }</Text> 
           <Text> Number of Questions: { deck.questions.length }</Text>
           <Button 
-            onPress={  () => { navigation.navigate( 'AddCard', { itemId: this.props.id, deck: this.props.deck })} } 
+            onPress={  () => { navigation.navigate( 'AddCard', { itemId: itemId, deck: this.props.deck })} } 
             style={{fontSize: 20, backgroud:'blue', color: 'green'}} title="Add Card To Deck"
           ></Button>
           <Button title="Start Quiz"></Button>
