@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { createBottomTabNavigator , createAppContainer , Platform } from 'react-navigation';
+import { createBottomTabNavigator , createAppContainer, createStackNavigator, Platform } from 'react-navigation';
 import AddDeckScreen from './components/AddDeckScreen.js'
 import HomeScreen from './components/HomeScreen.js'
+import DeckDetailScreen from './components/DeckDetailScreen.js'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { _getDecks } from './utils/_cardsApi.js'
 
 
+
+
+const DeckStack = createStackNavigator({
+  Home: HomeScreen,
+  Details: DeckDetailScreen,
+});
 
 const AppNavigator = createBottomTabNavigator({
   Home: {
-    screen: HomeScreen
+    screen: DeckStack
   },
   AddDeck: {
     screen: AddDeckScreen
