@@ -4,6 +4,7 @@ import { createBottomTabNavigator , createAppContainer, createStackNavigator, Pl
 import AddDeckScreen from './components/AddDeckScreen.js'
 import HomeScreen from './components/HomeScreen.js'
 import DeckDetailScreen from './components/DeckDetailScreen.js'
+import AddCardScreen from './components/AddCardScreen.js'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 
@@ -12,6 +13,7 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons'
 const DeckStack = createStackNavigator({
   Home: HomeScreen,
   Details: DeckDetailScreen,
+  AddCard: AddCardScreen
 });
 
 const AppNavigator = createBottomTabNavigator({

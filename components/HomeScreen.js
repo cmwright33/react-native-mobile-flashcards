@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput } from 'react-native';
-import { _getDecks , _retrieveAllData } from '../utils/_cardsApi.js'
+import { _getDecks } from '../utils/_cardsApi.js'
 import Deck from './Deck.js'
 import { AppLoading} from 'expo'
 
@@ -16,7 +16,7 @@ class HomeScreen extends Component {
 
   //once component mounts pull all decks
   componentDidMount() {
-    _retrieveAllData().then( (decks) => {
+    _getDecks().then( (decks) => {
       this.setState({ decks })
       this.setState({ ready : true })
     })
@@ -27,8 +27,7 @@ class HomeScreen extends Component {
 
 
 
-    const { ready , decks , asyncDeck } = this.state
-
+    const { ready , decks  } = this.state
 
 
     if(ready === false){
