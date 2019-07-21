@@ -6,8 +6,15 @@ import HomeScreen from './components/HomeScreen.js'
 import DeckDetailScreen from './components/DeckDetailScreen.js'
 import AddCardScreen from './components/AddCardScreen.js'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+import middleware from './middleware'
+import { handleInitialData } from './actions/decks.js'
 
 
+
+const store = createStore(reducer, middleware)
 
 
 const DeckStack = createStackNavigator({
@@ -25,6 +32,19 @@ const AppNavigator = createBottomTabNavigator({
   }
 });
 
-export default createAppContainer(AppNavigator);
+let Navigation = createAppContainer(AppNavigator);
 
+
+export default class App extends React.Component {
+  componentDidMount() {
+    store.dispatch(handleInitialData())
+  }
+  render() {
+    return (
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    );
+  }
+}
 

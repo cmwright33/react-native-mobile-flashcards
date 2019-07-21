@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, Button } from 'react-native';
-import { _saveDeckTitle, _retrieveData , _addCardToDeck} from '../utils/_cardsApi.js'
+import { handleAddCardToDeck } from '../actions/decks.js'
+import { connect } from 'react-redux'
 
 class AddCardScreen extends Component {
 
@@ -14,8 +15,9 @@ class AddCardScreen extends Component {
   addCard = () => {
 
    const { cardId , answer, question } = this.state
-
-   _addCardToDeck( cardId , { question:question, answer:answer } )
+   const { dispatch } = this.props
+   dispatch(handleAddCardToDeck(cardId, { question:question, answer:answer }))
+   
 
   }
 
@@ -48,5 +50,12 @@ class AddCardScreen extends Component {
   }
 }
 
+  function mapStateToProps ( { decks } ) {
 
-export default AddCardScreen;
+    return {
+      decks:decks
+    }
+  }
+
+
+export default connect(mapStateToProps)(AddCardScreen);

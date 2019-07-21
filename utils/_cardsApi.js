@@ -18,6 +18,7 @@ export async function _getDecks(){
     const value = await AsyncStorage.getItem(DECK_STORAGE_KEY);
     if (value !== null) {
       // We have data!!
+      console.log('data!')
       const data = JSON.parse(value)
       return data;
     }else{
@@ -113,17 +114,19 @@ export async function _removeDeck(title){
 
 // addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
 
-export function _addCardToDeck( title , card ) {
-
-	_getDecks().then( (decks) => {
-		const updateDeck = decks[title]
-		updateDeck.questions.push(card)
-		AsyncStorage.mergeItem( DECK_STORAGE_KEY, JSON.stringify( updateDeck ), () => {
-			console.log(title, 'card merged with deck!')
-
-			return card;
-		});
-		
-	} )
+export async function _addCardToDeck( title , card ) {
+	try{
+		_getDecks().then( (decks) => {
+			decks[title].questions.push(card)
+			console.log('updated', decks)
+			AsyncStorage.mergeItem( DECK_STORAGE_KEY, JSON.stringify( decks ), () => {
+				console.log('saved!')
+			});
+			
+		} )
+	} catch (error) {
+  		alert(error)
+    	// Error retrieving data
+  	}
 	
 }

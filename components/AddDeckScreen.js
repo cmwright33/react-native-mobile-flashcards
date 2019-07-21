@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, Button } from 'react-native';
-import { _saveDeckTitle, _retrieveData } from '../utils/_cardsApi.js'
+import { handleAddDeck } from '../actions/decks.js'
+import { connect } from 'react-redux'
 
 class AddDeckScreen extends Component {
 
@@ -13,17 +14,18 @@ class AddDeckScreen extends Component {
 
    e.preventDefault()
 
-   const { title }  =  this.state
-    _saveDeckTitle(title).then( () => {
-      this.setState({title: ''});
-    })
-  }
+   const {dispatch} = this.props
+   const { title }  = this.state
+   dispatch(handleAddDeck(title))
+  //  const { title }  =  this.state
+  //   _saveDeckTitle(title).then( () => {
+  //     this.setState({title: ''});
+  //   })
+  // }
 
-
-
-  testSubmit = () => {
-    const { title } = this.state
-    _retrieveData(title)
+  // testSubmit = () => {
+  //   const { title } = this.state
+  //   _retrieveData(title)
 
   }
 
@@ -48,5 +50,12 @@ class AddDeckScreen extends Component {
   }
 }
 
+  function mapStateToProps ( { decks } ) {
 
-export default AddDeckScreen;
+    return {
+      decks:decks
+    }
+  }
+
+
+export default connect(mapStateToProps)(AddDeckScreen);

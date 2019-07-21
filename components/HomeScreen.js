@@ -1,57 +1,35 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput } from 'react-native';
-import { _getDecks , intialSetUp } from '../utils/_cardsApi.js'
+import { Text, View, TextInput, ScrollView ,  StyleSheet} from 'react-native';
 import Deck from './Deck.js'
 import { AppLoading} from 'expo'
+import { connect } from 'react-redux'
 
 
 
 class HomeScreen extends Component {
-
-  state = {
-    decks: {},
-    ready: false,
-    asyncDeck: {}
-  }
-
-  //once component mounts pull all decks
-  componentDidMount() {
-    // intialSetUp().then( () => {
-    //   _getDecks().then( (decks)=> {
-    //     this.setState({ decks })
-    //     this.setState({ ready : true })
-    //   })
-    // })
-
-    _getDecks().then( (decks) => {
-      this.setState({ decks })
-      this.setState({ ready : true })
-    })
-
-  }
-
   render(){
 
-    const { ready , decks  } = this.state
-
-
-    if(ready === false){
-
-      return <AppLoading/>
-
-    }
-
-
     return(
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         { 
-          Object.keys(decks).map( (id) => {
-              return <Deck key={id} deck={decks[id]} id={id}/>
+          Object.keys(this.props.decks).map( (id) => {
+              return <Deck key={id} deck={this.props.decks[id]} id={id}/>
         })
         }
-      </View>
+      </ScrollView>
     )
   }
 }
 
-export default HomeScreen;
+  function mapStateToProps ( { decks } ) {
+
+    return {
+      decks:decks
+    }
+  }
+
+  const styles = StyleSheet.create({
+    contentContainer: { flex: 1, alignItems: "center", justifyContent: "center" }
+  });
+
+export default connect(mapStateToProps)(HomeScreen);
