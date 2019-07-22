@@ -17,15 +17,6 @@ class AddDeckScreen extends Component {
    const {dispatch} = this.props
    const { title }  = this.state
    dispatch(handleAddDeck(title))
-  //  const { title }  =  this.state
-  //   _saveDeckTitle(title).then( () => {
-  //     this.setState({title: ''});
-  //   })
-  // }
-
-  // testSubmit = () => {
-  //   const { title } = this.state
-  //   _retrieveData(title)
 
   }
 
@@ -35,7 +26,7 @@ class AddDeckScreen extends Component {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text> Please Name The New Deck You Are Creating! </Text>
         <TextInput
-         style={{height: 100}}
+         style={{height: 40, width: 200, marginTop: 10, textAlign:'center', borderColor: 'gray', borderWidth: 1}}
          placeholder="Name the Deck!"
          onChangeText={(title) => this.setState({title})}
          value={this.state.title}

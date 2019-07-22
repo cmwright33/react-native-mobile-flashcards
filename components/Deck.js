@@ -13,7 +13,7 @@ class Deck extends Component{
     return(
       <TouchableOpacity
           onPress={  () => { navigate( 'Details', { itemId: this.props.id })} } 
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+          style={{ flex: 1, alignItems: "center", justifyContent: "center", height: 80, borderRadius:5, width: 200, marginTop:10,  borderColor: 'gray', borderWidth: 1 }}>
         <Text> Name of Deck: { this.props.deck.title }</Text> 
         <Text> Number of Questions: { this.props.deck.questions.length }</Text>
       </TouchableOpacity>

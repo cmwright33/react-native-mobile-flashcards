@@ -29,7 +29,7 @@ class HomeScreen extends Component {
   }
 
   const styles = StyleSheet.create({
-    contentContainer: { flex: 1, alignItems: "center", justifyContent: "center" }
+    contentContainer: { alignItems: "center", justifyContent: "center" }
   });
 
 export default connect(mapStateToProps)(HomeScreen);

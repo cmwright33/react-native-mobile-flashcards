@@ -29,12 +29,12 @@ class DeckDetailScreen extends Component {
           <Button 
             onPress={  () => { navigation.navigate( 'AddCard', { itemId: id, deck: decks[id] })} } 
             style={{fontSize: 20, backgroud:'blue', color: 'green'}} title="Add Card To Deck"
-          ></Button>
+          />
           <Button 
             onPress={  () => { navigation.navigate( 'Quiz', { itemId: id, deck: decks[id] })} } 
             title="Start Quiz"
 
-            ></Button>
+            />
           </Fragment>
         }
       </View>

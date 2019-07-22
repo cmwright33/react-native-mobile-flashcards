@@ -1,9 +1,9 @@
 import React, { Component , Fragment } from 'react'
 import { Text, View, Button } from 'react-native';
-import Deck from './Deck.js'
 import { handleGetDeck } from '../actions/decks.js'
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux'
+import { AppLoading} from 'expo'
 
 
 
@@ -21,15 +21,34 @@ class QuizScreen extends Component {
     const id = this.props.navigation.getParam('itemId', 'NO-ID');
     const { decks } = this.props
     this.setState({ deck:decks[id]});
+
   }
 
-  nextCard = () => {
-    console.log(this.state.cardPostion );
-    const { cardPostion } = this.state
-    this.setState({ cardPostion: cardPostion + 1 } )
-    console.log(this.state.cardPostion );
+  nextCard = (correct) => {
+
+    this.setState((prevState, props) => ({
+    cardPostion: prevState.cardPostion + 1
+    }));
+    console.log('increment', this.state.cardPostion );
+
+    if(correct){
+      this.setState((prevState, props) => ({
+        correctAnswer: prevState.correctAnswer + 1
+      }));
+    }
+
+  }
+
+  reset = () =>{
+
+    this.setState((prevState, props) => ({
+      cardPostion: 0,
+      correctAnswer: 0
+    }));
     this.forceUpdate();
   }
+
+
 
   toggleHidden = () => {
     this.setState({
@@ -37,32 +56,35 @@ class QuizScreen extends Component {
     })
   }
 
-  answeredCorrect = () => {
-
-    const { correctAnswer } = this.state
-
-  }
 
 
   render(){
 
+
+
     const { deck , cardPostion , isHidden, correctAnswer } = this.state
 
+    if(Object.entries(deck).length === 0 && deck.constructor === Object ){
+       return <AppLoading/>
+    }
 
     if(deck.questions  === undefined || deck.questions.length === 0 ){
       return (
           <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Text>Please Add Cards!</Text>
-            <Button title='Back'></Button>
           </View>
-
         )
     }
 
-    if( ( cardPostion - 1 )  === deck.questions.length  ){
+    if( ( ( cardPostion - 1 )  === deck.questions.length ) || deck.questions[cardPostion] === undefined ){
       return (
           <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Text>Ya Done</Text>
+            <Text>Correct Answers: { correctAnswer } / { deck.questions.length }</Text>
+            <Button 
+              title='Start Over'
+              onPress={this.reset}
+              />
           </View>
 
         )
@@ -81,12 +103,15 @@ class QuizScreen extends Component {
           <Button 
           title='Show Answer'
           onPress={this.toggleHidden.bind(this)}
-          ></Button>
+          />
           <Button 
           title='Correct'
-          onPress={this.nextCard}
-          ></Button>
-          <Button title='Incorrect'></Button>
+          onPress={ ()=> { this.nextCard(true) }  }
+          />
+          <Button 
+          title='Incorrect'
+          onPress={ ()=> { this.nextCard(false) } }
+          />
           </Fragment>
         
       </View>

@@ -29,13 +29,13 @@ class AddCardScreen extends Component {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text> Add a New Card </Text>
         <TextInput
-         style={{height: 100}}
+         style={{height: 40, width: 200, marginTop: 10, textAlign:'center', borderColor: 'gray', borderWidth: 1}}
          placeholder="Question"
          onChangeText={(question) => this.setState({question})}
          value={this.state.question}
         />
         <TextInput
-         style={{height: 100}}
+        style={{height: 40, width: 200, marginTop: 10, textAlign:'center', borderColor: 'gray', borderWidth: 1}}
          placeholder="Answer"
          onChangeText={(answer) => this.setState({answer})}
          value={this.state.answer}
