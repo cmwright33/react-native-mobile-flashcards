@@ -12,10 +12,10 @@ function createNotification () {
     title: 'Remember to tale a Quiz!',
     body: "You need to keep up on your flash cards!",
     ios: {
-      sound: true,
+      sound: false,
     },
     android: {
-      sound: true,
+      sound: false,
       priority: 'high',
       sticky: false,
       vibrate: true,
@@ -42,7 +42,7 @@ export function setLocalNotification () {
 
               let tomorrow = new Date()
               tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(20)
+              tomorrow.setHours(10)
               tomorrow.setMinutes(0)
 
               Notifications.scheduleLocalNotificationAsync(
