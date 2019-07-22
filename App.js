@@ -5,6 +5,7 @@ import AddDeckScreen from './components/AddDeckScreen.js'
 import HomeScreen from './components/HomeScreen.js'
 import DeckDetailScreen from './components/DeckDetailScreen.js'
 import AddCardScreen from './components/AddCardScreen.js'
+import QuizScreen from './components/QuizScreen.js'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -20,7 +21,8 @@ const store = createStore(reducer, middleware)
 const DeckStack = createStackNavigator({
   Home: HomeScreen,
   Details: DeckDetailScreen,
-  AddCard: AddCardScreen
+  AddCard: AddCardScreen,
+  Quiz: QuizScreen
 });
 
 const AppNavigator = createBottomTabNavigator({

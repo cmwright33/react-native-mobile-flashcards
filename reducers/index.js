@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import	{ GET_DECKS , ADD_DECK , ADD_CARD_TO_DECK } from '../actions/decks.js'
+import	{ GET_DECKS , ADD_DECK , ADD_CARD_TO_DECK,  GET_DECK } from '../actions/decks.js'
 
 
 function decks (state= {}, action) {
@@ -8,6 +8,11 @@ function decks (state= {}, action) {
 			return {
 				...state,
 				...action.decks
+			}
+		case GET_DECK :
+			return {
+				...state,
+				...action.deck
 			}
 		case ADD_DECK :
 	      const { title } = action

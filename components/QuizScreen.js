@@ -1,74 +1,107 @@
 import React, { Component , Fragment } from 'react'
 import { Text, View, Button } from 'react-native';
 import Deck from './Deck.js'
-import { _getDeck } from '../utils/_cardsApi.js'
+import { handleGetDeck } from '../actions/decks.js'
+import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux'
 
 
 
-class DeckDetailScreen extends Component {
+class QuizScreen extends Component {
 
   state = {
-    correctAnswer: 0
-    cardPostion: 0
-    quizFinished: false
-    questions: []
+    deck:{},
+    correctAnswer: 0,
+    cardPostion: 0,
+    quizFinished: false,
+    isHidden: true
   }
 
+  componentDidMount = () => {
+    const id = this.props.navigation.getParam('itemId', 'NO-ID');
+    const { decks } = this.props
+    this.setState({ deck:decks[id]});
+  }
 
   nextCard = () => {
+    console.log(this.state.cardPostion );
+    const { cardPostion } = this.state
+    this.setState({ cardPostion: cardPostion + 1 } )
+    console.log(this.state.cardPostion );
+    this.forceUpdate();
+  }
 
-    const { cardPostion, questions } =  this.state
-
-    if(questions.length !== cardPostion ){
-
-      if(!quizFinished){
-
-        this.setState({ cardPostion: cardPostion + 1 })
-      }
-
-    }
-
+  toggleHidden = () => {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
   }
 
   answeredCorrect = () => {
 
     const { correctAnswer } = this.state
 
-
-  }
-
-
-
-
-  getData = ( ) => {
-    const { navigation } = this.props;
-    const id = navigation.getParam('itemId', 'NO-ID');
-    _getDeck(id);
   }
 
 
   render(){
 
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('itemId', 'NO-ID');
-    const deck = navigation.getParam('deck');
+    const { deck , cardPostion , isHidden, correctAnswer } = this.state
+
+
+    if(deck.questions  === undefined || deck.questions.length === 0 ){
+      return (
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Text>Please Add Cards!</Text>
+            <Button title='Back'></Button>
+          </View>
+
+        )
+    }
+
+    if( ( cardPostion - 1 )  === deck.questions.length  ){
+      return (
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Text>Ya Done</Text>
+          </View>
+
+        )
+    }
 
     return(
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        { 
+        
           <Fragment>
-          <Text> Name of Deck: { deck.title }</Text> 
-          <Text> Number of Questions: { deck.questions.length }</Text>
+          <Text>{ deck.questions[cardPostion].question }</Text>
+          {!isHidden &&
+              <Text>{ deck.questions[cardPostion].answer }</Text>
+
+          }
+          <Text>Correct Answers: { correctAnswer } / { deck.questions.length }</Text>
           <Button 
-            onPress={this.getData} 
-            style={{fontSize: 20, backgroud:'blue', color: 'green'}} title="Add Card To Deck"
+          title='Show Answer'
+          onPress={this.toggleHidden.bind(this)}
           ></Button>
-          <Button title="Start Quiz"></Button>
+          <Button 
+          title='Correct'
+          onPress={this.nextCard}
+          ></Button>
+          <Button title='Incorrect'></Button>
           </Fragment>
-        }
+        
       </View>
     )
   }
 }
 
-export default DeckDetailScreen;
+
+
+  function mapStateToProps ( { decks } ) {
+      
+    return {
+      decks:decks,
+    }
+  }
+
+
+export default withNavigation(connect(mapStateToProps)(QuizScreen));

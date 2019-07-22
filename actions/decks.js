@@ -1,4 +1,5 @@
 export const GET_DECKS  = 'GET_DECKS' 
+export const GET_DECK  = 'GET_DECk' 
 export const ADD_DECK  = 'ADD_DECK' 
 export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK'
 import { _getDecks , intialSetUp, _saveDeckTitle, _addCardToDeck } from '../utils/_cardsApi.js'
@@ -12,6 +13,12 @@ export function getDecks (decks) {
   }
 }
 
+export function getDeck (deck) {
+  return {
+    type: GET_DECK,
+    deck,
+  }
+}
 
  
 export function addDeck (title) {
@@ -37,6 +44,15 @@ export function handleInitialData() {
     return _getDecks()
       .then(( data ) => {
         dispatch(getDecks(data))
+      })
+  }
+}
+
+export function handleGetDeck() {
+  return (dispatch) => {
+    return _getDeck()
+      .then(( data ) => {
+        dispatch(getDeck(data))
       })
   }
 }
