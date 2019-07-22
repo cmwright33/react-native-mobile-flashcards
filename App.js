@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import middleware from './middleware'
 import { handleInitialData } from './actions/decks.js'
+import { setLocalNotification } from './utils/_localNotification.js'
 
 
 
@@ -40,6 +41,7 @@ let Navigation = createAppContainer(AppNavigator);
 export default class App extends React.Component {
   componentDidMount() {
     store.dispatch(handleInitialData())
+    setLocalNotification();
   }
   render() {
     return (

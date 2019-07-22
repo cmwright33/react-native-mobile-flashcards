@@ -3,6 +3,7 @@ import { Text, View, Button } from 'react-native';
 import Deck from './Deck.js'
 import { connect } from 'react-redux'
 import { AppLoading} from 'expo'
+import { withNavigation } from 'react-navigation';
 
 
 
@@ -45,7 +46,7 @@ class DeckDetailScreen extends Component {
   function mapStateToProps ( { decks } ) {
 
     return {  
-      decks :decks,
+      decks:decks,
     }
   }
 

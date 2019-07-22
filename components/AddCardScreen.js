@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TextInput, Button } from 'react-native';
 import { handleAddCardToDeck } from '../actions/decks.js'
 import { connect } from 'react-redux'
+import { withNavigation } from 'react-navigation';
 
 class AddCardScreen extends Component {
 
@@ -17,7 +18,8 @@ class AddCardScreen extends Component {
    const { cardId , answer, question } = this.state
    const { dispatch } = this.props
    dispatch(handleAddCardToDeck(cardId, { question:question, answer:answer }))
-   
+   this.setState( { answer: '', question: '' });
+   this.props.navigation.pop();
 
   }
 
@@ -58,4 +60,4 @@ class AddCardScreen extends Component {
   }
 
 
-export default connect(mapStateToProps)(AddCardScreen);
+export default withNavigation(connect(mapStateToProps)(AddCardScreen));

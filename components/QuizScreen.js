@@ -4,6 +4,7 @@ import { handleGetDeck } from '../actions/decks.js'
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux'
 import { AppLoading} from 'expo'
+import { setLocalNotification , clearLocalNotification } from '../utils/_localNotification.js'
 
 
 
@@ -29,7 +30,6 @@ class QuizScreen extends Component {
     this.setState((prevState, props) => ({
     cardPostion: prevState.cardPostion + 1
     }));
-    console.log('increment', this.state.cardPostion );
 
     if(correct){
       this.setState((prevState, props) => ({
@@ -77,6 +77,7 @@ class QuizScreen extends Component {
     }
 
     if( ( ( cardPostion - 1 )  === deck.questions.length ) || deck.questions[cardPostion] === undefined ){
+      clearLocalNotification().then(setLocalNotification);
       return (
           <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Text>Ya Done</Text>
@@ -85,6 +86,11 @@ class QuizScreen extends Component {
               title='Start Over'
               onPress={this.reset}
               />
+             <Button 
+              title='Back to Deck'
+              onPress={ () => { this.props.navigation.pop() }}
+              />
+
           </View>
 
         )

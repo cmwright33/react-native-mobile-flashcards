@@ -28,7 +28,7 @@ function decks (state= {}, action) {
 		      return {
 		        ...state,
 		        [id]: {
-		        	questions:[card]
+		        ...state, questions:[card]
 		        }
 		      }
 		default : 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TextInput, Button } from 'react-native';
 import { handleAddDeck } from '../actions/decks.js'
 import { connect } from 'react-redux'
+import { withNavigation } from 'react-navigation';
 
 class AddDeckScreen extends Component {
 
@@ -17,6 +18,8 @@ class AddDeckScreen extends Component {
    const {dispatch} = this.props
    const { title }  = this.state
    dispatch(handleAddDeck(title))
+   this.setState( { title: '' });
+   this.props.navigation.navigate('Home');
 
   }
 
@@ -49,4 +52,4 @@ class AddDeckScreen extends Component {
   }
 
 
-export default connect(mapStateToProps)(AddDeckScreen);
+export default withNavigation(connect(mapStateToProps)(AddDeckScreen));

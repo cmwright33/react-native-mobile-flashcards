@@ -9,6 +9,14 @@ import { connect } from 'react-redux'
 class HomeScreen extends Component {
   render(){
 
+    if(Object.entries(this.props.decks).length === 0 && this.props.decks.constructor === Object ){
+        return (
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Text>Please Add Some Decks!</Text>
+          </View>
+        )
+    }
+
     return(
       <ScrollView contentContainerStyle={styles.contentContainer}>
         { 
