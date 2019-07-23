@@ -28,7 +28,11 @@ function decks (state= {}, action) {
 		      return {
 		        ...state,
 		        [id]: {
-		        ...state, questions:[card]
+		        	...state[id],
+		        	questions: [ 
+		        		...state[id].questions,
+		        		{ answer: card.answer, question: card.question } 
+		        	]
 		        }
 		      }
 		default : 
@@ -40,3 +44,4 @@ function decks (state= {}, action) {
 export default combineReducers({
 	decks
 })
+

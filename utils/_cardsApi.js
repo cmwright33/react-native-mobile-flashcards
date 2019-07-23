@@ -56,9 +56,9 @@ export async function getDeckAsync(){
 
 export async function _saveDeckTitle(title){
   try {
-
-		AsyncStorage.mergeItem( DECK_STORAGE_KEY, JSON.stringify( { [title]:{ title:`${title}`, questions:[]} }  ), () => {
-			console.log(title, 'deck saved!')
+  		const deck = formatDeck(title);
+	  	AsyncStorage.mergeItem( DECK_STORAGE_KEY, JSON.stringify( { [title]:deck } ), () => {
+			console.log('deck saved!')
 		});
 
 	} catch (error) {
@@ -82,51 +82,28 @@ export async function _removeDeck(title){
 };
 
 
-
-
-// getDecks: return all of the decks along with their titles, questions, and answers.
-
-// export function _getDecks () {
-//   return new Promise((res, rej) => {
-//     setTimeout(() => res({...decks}), 1000)
-//   })
-// }
-
-
-// export async function _getDecks(){
-//   try {
-//     const value = await AsyncStorage.getItem(DECK_STORAGE_KEY);
-//     if (value !== null) {
-//       // We have data!!
-//       const data = JSON.parse(value)
-//        console.log(data, 'found data')
-//       return data;
-//     }else{
-//     	console.log('no data')
-//     	return {};
-//     }
-//   } catch (error) {
-//   	alert(error)
-//     // Error retrieving data
-//   }
-// };
-
-
 // addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
 
 export async function _addCardToDeck( title , card ) {
 	try{
-		_getDecks().then( (decks) => {
-			decks[title].questions.push(card)
-			console.log('updated', decks)
-			AsyncStorage.mergeItem( DECK_STORAGE_KEY, JSON.stringify( decks ), () => {
-				console.log('saved!')
-			});
+		const data = await AsyncStorage.getItem(DECK_STORAGE_KEY);
+		let decks = JSON.parse(data);
+		decks[title].questions.push({question: card.question, answer: card.answer})
+		AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(decks));
+		// await AsyncStorage.getItem(DECK_STORAGE_KEY).then((data) => {
+	 //        let decks = JSON.parse(data)
+	 //        decks[title].questions.push({question: card.question, answer: card.answer})
+	 //        return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(decks));
+	 //    })
 			
-		} )
 	} catch (error) {
   		alert(error)
     	// Error retrieving data
   	}
 	
+}
+
+
+function formatDeck(title){
+ return   { title:title, questions:[] } 
 }

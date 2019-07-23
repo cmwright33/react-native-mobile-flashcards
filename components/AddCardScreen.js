@@ -44,7 +44,7 @@ class AddCardScreen extends Component {
         />
         <Button 
         onPress={this.addCard} 
-        title="Create Deck"
+        title="Add to Deck!"
         disabled={ this.state.question === '' ||  this.state.answer === '' ? true : false }
         ></Button>
       </View>

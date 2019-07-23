@@ -13,7 +13,8 @@ import reducer from './reducers'
 import middleware from './middleware'
 import { handleInitialData } from './actions/decks.js'
 import { setLocalNotification } from './utils/_localNotification.js'
-
+import {AsyncStorage} from 'react-native';
+import {   intialSetUp,  } from './utils/_cardsApi.js'
 
 
 const store = createStore(reducer, middleware)
@@ -39,7 +40,10 @@ let Navigation = createAppContainer(AppNavigator);
 
 
 export default class App extends React.Component {
+
   componentDidMount() {
+    // AsyncStorage.clear();
+    intialSetUp();
     store.dispatch(handleInitialData())
     setLocalNotification();
   }

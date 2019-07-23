@@ -17,7 +17,7 @@ class AddDeckScreen extends Component {
 
    const {dispatch} = this.props
    const { title }  = this.state
-   dispatch(handleAddDeck(title))
+   dispatch(handleAddDeck(title.trim()))
    this.setState( { title: '' });
    this.props.navigation.navigate('Home');
 
